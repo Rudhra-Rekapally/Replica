@@ -14,6 +14,7 @@
 		4A139CE62AE1B1A000708966 /* Replica_FigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A139CE52AE1B1A000708966 /* Replica_FigTests.swift */; };
 		4A139CF02AE1B1A000708966 /* Replica_FigUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A139CEF2AE1B1A000708966 /* Replica_FigUITests.swift */; };
 		4A139CF22AE1B1A000708966 /* Replica_FigUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A139CF12AE1B1A000708966 /* Replica_FigUITestsLaunchTests.swift */; };
+		4A83ACB32AE34EF600AE1FBA /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A83ACB22AE34EF600AE1FBA /* PostViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		4A139CEB2AE1B1A000708966 /* Replica_FigUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Replica_FigUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A139CEF2AE1B1A000708966 /* Replica_FigUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replica_FigUITests.swift; sourceTree = "<group>"; };
 		4A139CF12AE1B1A000708966 /* Replica_FigUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replica_FigUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4A83ACB22AE34EF600AE1FBA /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				4A139CD42AE1B19A00708966 /* Replica_FigApp.swift */,
+				4A83ACB22AE34EF600AE1FBA /* PostViewModel.swift */,
 				4A139CD62AE1B19A00708966 /* ContentView.swift */,
 				4A139CD82AE1B19F00708966 /* Assets.xcassets */,
 				4A139CDA2AE1B19F00708966 /* Preview Content */,
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A83ACB32AE34EF600AE1FBA /* PostViewModel.swift in Sources */,
 				4A139CD72AE1B19A00708966 /* ContentView.swift in Sources */,
 				4A139CD52AE1B19A00708966 /* Replica_FigApp.swift in Sources */,
 			);

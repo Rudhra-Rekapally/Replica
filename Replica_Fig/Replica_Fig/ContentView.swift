@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = PostViewModel()
     @State private var selectedTab = "Stay Local"
-    @State private var likes = [false, false, false]
     @State private var cardExpanded = [false, false, false]
     
     let posts: [PostData] = randomPosts
@@ -14,7 +14,7 @@ struct ContentView: View {
             ScrollView(.vertical, showsIndicators: true) {
                 ForEach(0..<posts.count) { index in
                     PostCard(
-                        isLiked: $likes[index],
+                        isLiked: $viewModel.likes[index],
                         cardExpanded: $cardExpanded[index],
                         postData: posts[index]
                     )
@@ -76,11 +76,6 @@ struct CustomTabBar: View {
                 
                 Spacer()
                 
-                Image("ProfilePicture")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 40, height: 40)
-                    .clipShape(Circle())
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
@@ -132,7 +127,7 @@ struct PostCard: View {
                     Spacer()
                     
                     Button(action: {
-                        self.isLiked.toggle()
+                        self.isLiked.toggle() // Toggle the like state
                     }) {
                         Image(systemName: isLiked ? "heart.fill" : "heart")
                             .resizable()
@@ -186,6 +181,7 @@ struct PostCard: View {
         .padding(.bottom, 10)
     }
 }
+
 
 struct PostData {
     let type: String
