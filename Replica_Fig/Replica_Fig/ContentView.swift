@@ -18,14 +18,19 @@ struct ContentView: View {
                         cardExpanded: $cardExpanded[index],
                         postData: posts[index]
                     )
+                    .padding(.bottom, 90)
+                    .onTapGesture {
+                        viewModel.toggleLike(at: index)  // Toggle the like state
+                    }
                 }
             }
             .background(Color(red: 0.98, green: 0.97, blue: 0.96))
-
+            
             FooterMenu()
         }
     }
 }
+
 
 struct CustomTabBar: View {
     @Binding var selectedTab: String
@@ -93,6 +98,8 @@ struct PostCard: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+            
+            // Type
             HStack {
                 Text(postData.type)
                     .padding(.horizontal)
@@ -116,9 +123,43 @@ struct PostCard: View {
                     .cornerRadius(15)
             }
             .lineLimit(1)
+            .padding(.bottom, 20) // Add some space below the type
+            
+            ZStack {
+                // Image
+                Image(postData.imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 360, height: 390)
+                    .clipped()
+                    .cornerRadius(10)
+                
+                // Description Card
+                if cardExpanded {
+                    VStack {
+                        Text(postData.title)
+                            .bold()
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                        
+                        Text(postData.description)
+                            .font(.caption)
+                            .padding()
+                    }
+                    .background(Color(red: 0.98, green: 0.97, blue: 0.96).opacity(0.8))
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .onTapGesture {
+                        withAnimation {
+                            cardExpanded.toggle()
+                        }
+                    }
+                }
+            }
+            
             
             Spacer()
             
+            // Remaining content
             VStack(alignment: .leading) {
                 HStack {
                     Text(postData.userName)
@@ -173,14 +214,13 @@ struct PostCard: View {
                 }
             }
         }
-        .padding(.horizontal, 5)
-        .padding(.vertical, 10)
-        .frame(height: 550)
+        .frame(width: 360, height: 550) // Set frame width to 360
+        .padding(.bottom, 10) // Padding at the bottom
         .shadow(radius: 10)
-        .padding(.horizontal, 20)
-        .padding(.bottom, 10)
     }
 }
+
+
 
 
 struct PostData {
@@ -191,12 +231,13 @@ struct PostData {
     let date: String
     let title: String
     let description: String
+    let imageName: String
 }
 
 let randomPosts: [PostData] = [
-    PostData(type: "Rec", experience: "Adventure", classType: "Outdoor", userName: "Alice_Wonder", date: "12 October 2023", title: "Mountain Climbing.  ", description: "a mountain in Colorado for the first time was an experience that transcended mere physical exertion; it was a journey of self-discovery and awe-inspiring moments. The initial ascent was a blend of excitement and trepidation, as I navigated through rugged terrains and steep inclines. The air grew thinner with elevation, but each breath felt like a gulp of purity, untainted by urban life. Surrounded by the grandeur of towering peaks and expansive forests, I felt both humbled and invigorated. The challenges of the climb—be it the slippery rocks, the unpredictable weather, or the bouts of altitude sickness—were mitigated by the camaraderie among fellow climbers and the sheer beauty of the natural landscape."),
-    PostData(type: "Food", experience: "Dining", classType: "Restaurant", userName: "FoodieMark", date: "13 October 2023", title: "Fine dining in New York City ", description: "Discover the best five-star restaurants in NYC offers an unparalleled gastronomic experience, blending world-class culinary artistry with exceptional service. Restaurants like The Consulate in Midtown specialize in French and New American cuisines, boasting a 4.5-star rating. Boucherie Union Square, another 4.5-star establishment, serves exquisite steak and French dishes. Cathédrale Restaurant offers a blend of French and Mediterranean flavors and holds a 4-star rating. These restaurants not only provide a feast for the palate but also create an atmosphere that elevates the entire dining experience. Whether it's the meticulously crafted cocktails or the elegant interiors, fine dining in NYC is a luxurious affair worth experiencing."),
-    PostData(type: "Travel", experience: "Leisure", classType: "Beach", userName: "Traveller_Joe", date: "14 October 2023", title: "Relaxing in Bali", description: "Find the most peaceful beaches in Bali, Bali, often referred to as the Island of the Gods, offers a rich tapestry of experiences for travelers. From its lush rice terraces in Ubud to the bustling nightlife in Kuta, Bali is a destination that caters to various tastes. The island is renowned for its intricate temples, vibrant arts scene, and traditional ceremonies. For those seeking tranquility, the northern and western coasts offer secluded beaches and diving spots. Transportation can be a challenge, with congested roads, but renting a scooter or hiring a private driver can make navigation easier. Food hygiene has improved significantly, so enjoying local cuisine is generally safe")
+    PostData(type: "Rec", experience: "Adventure", classType: "Outdoor", userName: "Alice_Wonder", date: "12 October 2023", title: "Mountain Climbing.  ", description: "a mountain in Colorado for the first time was an experience that transcended mere physical exertion; it was a journey of self-discovery and awe-inspiring moments. The initial ascent was a blend of excitement and trepidation, as I navigated through rugged terrains and steep inclines. The air grew thinner with elevation, but each breath felt like a gulp of purity, untainted by urban life. Surrounded by the grandeur of towering peaks and expansive forests, I felt both humbled and invigorated. The challenges of the climb—be it the slippery rocks, the unpredictable weather, or the bouts of altitude sickness—were mitigated by the camaraderie among fellow climbers and the sheer beauty of the natural landscape.", imageName: "Mountain climbing"),
+    PostData(type: "Food", experience: "Dining", classType: "Restaurant", userName: "FoodieMark", date: "13 October 2023", title: "Fine dining in New York City ", description: "Discover the best five-star restaurants in NYC offers an unparalleled gastronomic experience, blending world-class culinary artistry with exceptional service. Restaurants like The Consulate in Midtown specialize in French and New American cuisines, boasting a 4.5-star rating. Boucherie Union Square, another 4.5-star establishment, serves exquisite steak and French dishes. Cathédrale Restaurant offers a blend of French and Mediterranean flavors and holds a 4-star rating. These restaurants not only provide a feast for the palate but also create an atmosphere that elevates the entire dining experience. Whether it's the meticulously crafted cocktails or the elegant interiors, fine dining in NYC is a luxurious affair worth experiencing.", imageName: "Fine Dining nyc"),
+    PostData(type: "Travel", experience: "Leisure", classType: "Beach", userName: "Traveller_Joe", date: "14 October 2023", title: "Relaxing in Bali", description: "Find the most peaceful beaches in Bali, Bali, often referred to as the Island of the Gods, offers a rich tapestry of experiences for travelers. From its lush rice terraces in Ubud to the bustling nightlife in Kuta, Bali is a destination that caters to various tastes. The island is renowned for its intricate temples, vibrant arts scene, and traditional ceremonies. For those seeking tranquility, the northern and western coasts offer secluded beaches and diving spots. Transportation can be a challenge, with congested roads, but renting a scooter or hiring a private driver can make navigation easier. Food hygiene has improved significantly, so enjoying local cuisine is generally safe", imageName: "Bali Trip")
 ]
 
 
@@ -220,4 +261,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
